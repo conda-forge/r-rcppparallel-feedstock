@@ -1,4 +1,4 @@
-{% set version = '4.3.20' %}
+{% set version = '4.4.0' %}
 
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
@@ -12,14 +12,13 @@ source:
   url:
     - https://cran.r-project.org/src/contrib/RcppParallel_{{ version }}.tar.gz
     - https://cran.r-project.org/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
-  sha256: 0fac9b63c4c294619388138a048b507efee2e990c447924c309a0421611183c1
+  sha256: 018e7cbdf8c050e276e2f510d07aeb510d794e3478dba0f506d185a8ffac58be
 
 build:
   number: 0
   # compilation failed
   # cp: cannot stat 'tbb/build/lib_release/tbb*.dll': No such file or directory
   skip: true  # [win]
-
   rpaths:
     - lib/R/lib/
     - lib/
@@ -50,6 +49,8 @@ about:
     parallel one and the 'parallelReduce()' function can be used for accumulating aggregate
     or other values.
   license_family: GPL2
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-2'  # [win]
 
 extra:
   recipe-maintainers:
@@ -57,3 +58,4 @@ extra:
     - bgruening
     - daler
     - jdblischak
+    - cbrueffer
