@@ -15,7 +15,8 @@ source:
   sha256: 018e7cbdf8c050e276e2f510d07aeb510d794e3478dba0f506d185a8ffac58be
 
 build:
-  number: 0
+  merge_build_host: True  # [win]
+  number: 1
   # compilation failed
   # cp: cannot stat 'tbb/build/lib_release/tbb*.dll': No such file or directory
   skip: true  # [win]
@@ -25,16 +26,18 @@ build:
 
 requirements:
   build:
+    - posix                # [win]
+    - {{ compiler('c') }}        # [unix]
+    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('cxx') }}        # [unix]
+    - {{ compiler('m2w64_cxx') }}  # [win]
+  host:
     - r-base
     - r-bh >=1.60.0_1
-    - posix                # [win]
-    - {{native}}toolchain  # [win]
-    - gcc                  # [not win]
 
   run:
     - r-base
     - r-bh >=1.60.0_1
-    - libgcc  # [not win]
 
 test:
   commands:
