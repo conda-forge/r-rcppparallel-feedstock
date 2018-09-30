@@ -1,5 +1,4 @@
-{% set version = '4.4.0' %}
-
+{% set version = '4.4.1' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,38 +9,44 @@ package:
 source:
   fn: RcppParallel_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/RcppParallel_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
-  sha256: 018e7cbdf8c050e276e2f510d07aeb510d794e3478dba0f506d185a8ffac58be
+    - {{ cran_mirror }}/src/contrib/RcppParallel_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
+  sha256: ea893c69cbc16f980498cf0446813654d58642e9189d4b238274bb68ec5d67f8
 
 build:
   merge_build_host: True  # [win]
-  number: 1
-  # compilation failed
-  # cp: cannot stat 'tbb/build/lib_release/tbb*.dll': No such file or directory
-  skip: true  # [win]
+  number: 0
+  skip: true  # [win32]
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
-    - {{ compiler('cxx') }}        # [unix]
-    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('cxx') }}      # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}sed               # [win]
+    - {{posix}}grep              # [win]
+    - {{posix}}autoconf
+    - {{posix}}automake          # [not win]
+    - {{posix}}automake-wrapper  # [win]
+    - {{posix}}pkg-config
+    - {{posix}}make
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
     - r-bh >=1.60.0_1
-
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
     - r-bh >=1.60.0_1
 
 test:
   commands:
-    - $R -e "library('RcppParallel')"  # [not win]
+    - $R -e "library('RcppParallel')"           # [not win]
     - "\"%R%\" -e \"library('RcppParallel')\""  # [win]
 
 about:
@@ -62,3 +67,4 @@ extra:
     - daler
     - jdblischak
     - cbrueffer
+    - dbast
