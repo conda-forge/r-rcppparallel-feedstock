@@ -1,4 +1,4 @@
-{% set version = '4.4.1' %}
+{% set version = '4.4.2' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -7,16 +7,14 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: RcppParallel_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/RcppParallel_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
-  sha256: ea893c69cbc16f980498cf0446813654d58642e9189d4b238274bb68ec5d67f8
+  sha256: 28733f4ffa88b9cd46c966015af8eda8e7325c93e5886d64f522dddb1968d984
 
 build:
   merge_build_host: True  # [win]
-  number: 1001
-  skip: true  # [win32]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -38,11 +36,9 @@ requirements:
     - {{posix}}zip               # [win]
   host:
     - r-base
-    - r-bh >=1.60.0_1
   run:
     - r-base
     - {{native}}gcc-libs         # [win]
-    - r-bh >=1.60.0_1
 
 test:
   commands:
@@ -61,9 +57,24 @@ about:
 
 extra:
   recipe-maintainers:
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
-    - cbrueffer
-    - dbast
+    - conda-forge/r
+
+# Package: RcppParallel
+# Type: Package
+# Title: Parallel Programming Tools for 'Rcpp'
+# Version: 4.4.2
+# Authors@R: c( person("JJ", "Allaire", role = c("aut"), email = "jj@rstudio.com"), person("Romain", "Francois", role = c("aut", "cph")), person("Kevin", "Ushey", role = c("aut", "cre"), email = "kevin@rstudio.com"), person("Gregory", "Vandenbrouck", role = "aut"), person("Marcus", "Geelnard", role = c("aut", "cph"), comment = "TinyThread library, http://tinythreadpp.bitsnbites.eu/"), person(family = "RStudio", role = "cph"), person(family = "Intel", role = c("aut", "cph"), comment = "Intel TBB library, https://www.threadingbuildingblocks.org/"), person(family = "Microsoft", role = "cph") )
+# Description: High level functions for parallel programming with 'Rcpp'. For example, the 'parallelFor()' function can be used to convert the work of a standard serial "for" loop into a parallel one and the 'parallelReduce()' function can be used for accumulating aggregate or other values.
+# Depends: R (>= 3.0.2)
+# Suggests: Rcpp, RUnit, knitr, rmarkdown
+# SystemRequirements: GNU make, Windows: cmd.exe and cscript.exe, Solaris: g++ is required
+# License: GPL-2
+# URL: http://rcppcore.github.io/RcppParallel, https://github.com/RcppCore/RcppParallel
+# Biarch: TRUE
+# Collate: 'build.R' 'hooks.R' 'options.R' 'skeleton.R'
+# NeedsCompilation: yes
+# Packaged: 2018-12-11 18:57:52 UTC; kevin
+# Author: JJ Allaire [aut], Romain Francois [aut, cph], Kevin Ushey [aut, cre], Gregory Vandenbrouck [aut], Marcus Geelnard [aut, cph] (TinyThread library, http://tinythreadpp.bitsnbites.eu/), RStudio [cph], Intel [aut, cph] (Intel TBB library, https://www.threadingbuildingblocks.org/), Microsoft [cph]
+# Maintainer: Kevin Ushey <kevin@rstudio.com>
+# Repository: CRAN
+# Date/Publication: 2018-12-11 23:30:07 UTC
