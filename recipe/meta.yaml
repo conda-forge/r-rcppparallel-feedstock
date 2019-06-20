@@ -1,4 +1,4 @@
-{% set version = '4.4.2' %}
+{% set version = '4.4.3' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/RcppParallel_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
-  sha256: 28733f4ffa88b9cd46c966015af8eda8e7325c93e5886d64f522dddb1968d984
+  sha256: 7a04929ecab97e46c0b09fe5cdbac9d7bfa17ad7d111f1a9787a9997f45fa0fa
 
 build:
   merge_build_host: True  # [win]
@@ -21,9 +21,10 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [not win]
-    - {{ compiler('cxx') }}      # [not win]
-    - {{native}}toolchain        # [win]
+    - {{ compiler('c') }}              # [not win]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{ compiler('cxx') }}            # [not win]
+    - {{ compiler('m2w64_cxx') }}      # [win]
     - {{posix}}filesystem        # [win]
     - {{posix}}sed               # [win]
     - {{posix}}grep              # [win]
@@ -62,7 +63,7 @@ extra:
 # Package: RcppParallel
 # Type: Package
 # Title: Parallel Programming Tools for 'Rcpp'
-# Version: 4.4.2
+# Version: 4.4.3
 # Authors@R: c( person("JJ", "Allaire", role = c("aut"), email = "jj@rstudio.com"), person("Romain", "Francois", role = c("aut", "cph")), person("Kevin", "Ushey", role = c("aut", "cre"), email = "kevin@rstudio.com"), person("Gregory", "Vandenbrouck", role = "aut"), person("Marcus", "Geelnard", role = c("aut", "cph"), comment = "TinyThread library, http://tinythreadpp.bitsnbites.eu/"), person(family = "RStudio", role = "cph"), person(family = "Intel", role = c("aut", "cph"), comment = "Intel TBB library, https://www.threadingbuildingblocks.org/"), person(family = "Microsoft", role = "cph") )
 # Description: High level functions for parallel programming with 'Rcpp'. For example, the 'parallelFor()' function can be used to convert the work of a standard serial "for" loop into a parallel one and the 'parallelReduce()' function can be used for accumulating aggregate or other values.
 # Depends: R (>= 3.0.2)
@@ -73,8 +74,8 @@ extra:
 # Biarch: TRUE
 # Collate: 'build.R' 'hooks.R' 'options.R' 'skeleton.R'
 # NeedsCompilation: yes
-# Packaged: 2018-12-11 18:57:52 UTC; kevin
+# Packaged: 2019-05-22 18:52:14 UTC; kevin
 # Author: JJ Allaire [aut], Romain Francois [aut, cph], Kevin Ushey [aut, cre], Gregory Vandenbrouck [aut], Marcus Geelnard [aut, cph] (TinyThread library, http://tinythreadpp.bitsnbites.eu/), RStudio [cph], Intel [aut, cph] (Intel TBB library, https://www.threadingbuildingblocks.org/), Microsoft [cph]
 # Maintainer: Kevin Ushey <kevin@rstudio.com>
 # Repository: CRAN
-# Date/Publication: 2018-12-11 23:30:07 UTC
+# Date/Publication: 2019-05-22 22:20:04 UTC
