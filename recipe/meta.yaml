@@ -1,4 +1,4 @@
-{% set version = "5.0.0" %}
+{% set version = "5.0.1" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/RcppParallel_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
-  sha256: ab41b83bcb65e1782a7a05b57db53ba59ab49bdff3023846e1aef643ee360dd6
+  sha256: 6d3a4ef1ae93ac057d8f4f9378f9ed078616310fb0f3af5aabf8bd1eadf43e09
 
 build:
   merge_build_host: true  # [win]
-  number: 1
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -49,8 +49,7 @@ test:
 about:
   home: http://rcppcore.github.io/RcppParallel, https://github.com/RcppCore/RcppParallel
   license: GPL-2
-  summary: High level functions for parallel programming with 'Rcpp'. For example, the 'parallelFor()' function can be used to convert the work of a standard serial
-    "for" loop into a parallel one and the 'parallelReduce()' function can be used for accumulating aggregate or other values.
+  summary: High level functions for parallel programming with 'Rcpp'. For example, the 'parallelFor()' function can be used to convert the work of a standard serial "for" loop into a parallel one and the 'parallelReduce()' function can be used for accumulating aggregate or other values.
   license_family: GPL2
   license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
 
