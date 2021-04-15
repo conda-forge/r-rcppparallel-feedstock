@@ -48,10 +48,11 @@ test:
 
 about:
   home: http://rcppcore.github.io/RcppParallel, https://github.com/RcppCore/RcppParallel
-  license: GPL-2
+  license: GPL-2.0-or-later
   summary: High level functions for parallel programming with 'Rcpp'. For example, the 'parallelFor()' function can be used to convert the work of a standard serial "for" loop into a parallel one and the 'parallelReduce()' function can be used for accumulating aggregate or other values.
   license_family: GPL2
-  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+  license_file:
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
 
 extra:
   recipe-maintainers:
