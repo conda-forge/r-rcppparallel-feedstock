@@ -1,4 +1,4 @@
-{% set version = "5.1.3" %}
+{% set version = "5.1.4" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/RcppParallel_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
-  sha256: fbf45df492fa8d95850e0a709ea2cfb61040f5122f72eb8986b897642a407eb0
+  sha256: 76b545a6878c55edba780183fd89a76fe723b7f19709c5243495dcf3d54eea82
 
 build:
   merge_build_host: true  # [win]
