@@ -1,11 +1,22 @@
+About r-rcppparallel-feedstock
+==============================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-rcppparallel-feedstock/blob/main/LICENSE.txt)
+
 About r-rcppparallel
-====================
+--------------------
 
 Home: http://rcppcore.github.io/RcppParallel, https://github.com/RcppCore/RcppParallel
 
 Package license: GPL-2.0-or-later
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-rcppparallel-feedstock/blob/main/LICENSE.txt)
+Summary: High level functions for parallel programming with 'Rcpp'. For example, the 'parallelFor()' function can be used to convert the work of a standard serial "for" loop into a parallel one and the 'parallelReduce()' function can be used for accumulating aggregate or other values.
+About r-rcppparallel
+--------------------
+
+Home: http://rcppcore.github.io/RcppParallel, https://github.com/RcppCore/RcppParallel
+
+Package license: GPL-2.0-or-later
 
 Summary: High level functions for parallel programming with 'Rcpp'. For example, the 'parallelFor()' function can be used to convert the work of a standard serial "for" loop into a parallel one and the 'parallelReduce()' function can be used for accumulating aggregate or other values.
 
