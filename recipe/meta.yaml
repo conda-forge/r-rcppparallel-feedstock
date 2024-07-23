@@ -38,8 +38,10 @@ requirements:
     - {{ posix }}zip               # [win]
   host:
     - r-base
+    - tbb-devel
   run:
     - r-base
+    - tbb-devel
 
 test:
   commands:
