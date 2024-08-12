@@ -15,7 +15,7 @@ index cbd5ef4..67c82df 100644
  #ifndef __RCPP_PARALLEL__
  #define __RCPP_PARALLEL__
  
-+#if defined(WINNT) && defined(__clang__)
++#if defined(WINNT)
 +# define NOMINMAX
 +#endif
 +
