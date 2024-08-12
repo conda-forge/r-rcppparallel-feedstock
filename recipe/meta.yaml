@@ -10,6 +10,8 @@ source:
     - {{ cran_mirror }}/src/contrib/RcppParallel_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
   sha256: d655b18ad85655e3df9313695a46e7ba6c8c0b5576ff1ab50010b34a97bba126
+  patches:
+   - patches/0001-nominmax-win-clang.patch
 
 build:
   number: 0
