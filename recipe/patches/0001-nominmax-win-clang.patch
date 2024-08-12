@@ -1,0 +1,24 @@
+From bfdd0b14b6ec5078cb8f44762584c475e166d59f Mon Sep 17 00:00:00 2001
+From: Mervin Fansler <mervin.fansler@bric.ku.dk>
+Date: Mon, 12 Aug 2024 15:19:36 +0200
+Subject: [PATCH] nominmax-win-clang
+
+---
+ inst/include/RcppParallel.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/inst/include/RcppParallel.h b/inst/include/RcppParallel.h
+index cbd5ef4..67c82df 100644
+--- a/inst/include/RcppParallel.h
++++ b/inst/include/RcppParallel.h
+@@ -2,6 +2,10 @@
+ #ifndef __RCPP_PARALLEL__
+ #define __RCPP_PARALLEL__
+ 
++#if defined(WINNT) && defined(__clang__)
++# define NOMINMAX
++#endif
++
+ // TinyThread implementation
+ #include "RcppParallel/TinyThread.h"
+ 
