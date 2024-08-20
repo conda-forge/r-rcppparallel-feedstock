@@ -16,6 +16,8 @@ build:
   rpaths:
     - lib/R/lib/
     - lib/
+  script-env:       # [aarch64]
+    - arch=aarch64  # [aarch64]
 
 requirements:
   build:
