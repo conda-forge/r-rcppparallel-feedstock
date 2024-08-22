@@ -41,9 +41,18 @@ requirements:
     - r-base
 
 test:
+  requires:
+    - r-rcpp
+    - r-runit
+  source_files:
+    - tests/
   commands:
-    - $R -e "library('RcppParallel')"           # [not win]
-    - "\"%R%\" -e \"library('RcppParallel')\""  # [win]
+    - $R -e "library('RcppParallel')"                                    # [not win]
+    - RCPP_PARALLEL_BACKEND=tbb Rscript tests/doRUnit.R                  # [not win]
+    - RCPP_PARALLEL_BACKEND=tinythread Rscript tests/doRUnit.R           # [not win]
+    - "\"%R%\" -e \"library('RcppParallel')\""                           # [win]
+    - "set RCPP_PARALLEL_BACKEND=tbb && Rscript tests/doRUnit.R"         # [win]
+    - "set RCPP_PARALLEL_BACKEND=tinythread && Rscript tests/doRUnit.R"  # [win]
 
 about:
   home: http://rcppcore.github.io/RcppParallel
