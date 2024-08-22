@@ -42,6 +42,7 @@ requirements:
 
 test:
   requires:
+    - make     # [win]
     - r-rcpp
     - r-runit
   source_files:
