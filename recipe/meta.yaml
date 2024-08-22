@@ -12,12 +12,14 @@ source:
   sha256: fd0861f3f0f7be4e0ef29c021e75beb351ae2eb18ce5d79e21f2725da4da114f
 
 build:
-  number: 0
+  number: 1
   rpaths:
     - lib/R/lib/
     - lib/
-  script_env:       # [aarch64]
+  script_env:       # [aarch64 or arm64 or ppc64le]
     - arch=aarch64  # [aarch64]
+    - arch=arm64    # [arm64]
+    - arch=ppc64le  # [ppc64le]
 
 requirements:
   build:
