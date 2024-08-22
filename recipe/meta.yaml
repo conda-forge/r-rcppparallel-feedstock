@@ -1,6 +1,5 @@
-{% set version = "5.1.6" %}
+{% set version = "5.1.9" %}
 {% set posix = 'm2-' if win else '' %}
-{% set native = 'm2w64-' if win else '' %}
 
 package:
   name: r-rcppparallel
@@ -10,22 +9,25 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/RcppParallel_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
-  sha256: ac560d868e9757a93ddbf176dfd851fc753f67919476f88e248fe94cba4f0f15
+  sha256: fd0861f3f0f7be4e0ef29c021e75beb351ae2eb18ce5d79e21f2725da4da114f
 
 build:
-  merge_build_host: true  # [win]
-  number: 1
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
+  script_env:       # [aarch64]
+    - arch=aarch64  # [aarch64]
 
 requirements:
   build:
     - cross-r-base {{ r_base }}  # [build_platform != target_platform]
-    - {{ compiler('c') }}              # [not win]
-    - {{ compiler('m2w64_c') }}        # [win]
-    - {{ compiler('cxx') }}            # [not win]
-    - {{ compiler('m2w64_cxx') }}      # [win]
+    - {{ compiler('c') }}          # [not win]
+    - {{ stdlib("c") }}            # [not win]
+    - {{ compiler('cxx') }}        # [not win]
+    - {{ compiler('m2w64_c') }}    # [win]
+    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ stdlib("m2w64_c") }}      # [win]
     - {{ posix }}filesystem        # [win]
     - {{ posix }}sed               # [win]
     - {{ posix }}grep              # [win]
@@ -40,41 +42,31 @@ requirements:
     - r-base
   run:
     - r-base
-    - {{ native }}gcc-libs         # [win]
 
 test:
+  requires:
+    - {{ posix }}make     # [win]
+    - r-rcpp
+    - r-runit
+  source_files:
+    - tests/
   commands:
-    - $R -e "library('RcppParallel')"           # [not win]
-    - "\"%R%\" -e \"library('RcppParallel')\""  # [win]
+    - $R -e "library('RcppParallel')"                                        # [not win]
+    - RCPP_PARALLEL_BACKEND=tbb Rscript tests/doRUnit.R                      # [not win]
+    - RCPP_PARALLEL_BACKEND=tinythread Rscript tests/doRUnit.R               # [not win]
+    - "\"%R%\" -e \"library('RcppParallel')\""                               # [win]
+    - "set \"RCPP_PARALLEL_BACKEND=tbb\" && Rscript tests/doRUnit.R"         # [win]
+    - "set \"RCPP_PARALLEL_BACKEND=tinythread\" && Rscript tests/doRUnit.R"  # [win]
 
 about:
-  home: http://rcppcore.github.io/RcppParallel, https://github.com/RcppCore/RcppParallel
-  license: GPL-2.0-or-later
+  home: http://rcppcore.github.io/RcppParallel
+  dev_url: https://github.com/RcppCore/RcppParallel
+  license: GPL-3.0-or-later
   summary: High level functions for parallel programming with 'Rcpp'. For example, the 'parallelFor()' function can be used to convert the work of a standard serial "for" loop into a parallel one and the 'parallelReduce()' function can be used for accumulating aggregate or other values.
-  license_family: GPL2
+  license_family: GPL3
   license_file:
-    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
     - conda-forge/r
-
-# Package: RcppParallel
-# Type: Package
-# Title: Parallel Programming Tools for 'Rcpp'
-# Version: 4.4.3
-# Authors@R: c( person("JJ", "Allaire", role = c("aut"), email = "jj@rstudio.com"), person("Romain", "Francois", role = c("aut", "cph")), person("Kevin", "Ushey", role = c("aut", "cre"), email = "kevin@rstudio.com"), person("Gregory", "Vandenbrouck", role = "aut"), person("Marcus", "Geelnard", role = c("aut", "cph"), comment = "TinyThread library, http://tinythreadpp.bitsnbites.eu/"), person(family = "RStudio", role = "cph"), person(family = "Intel", role = c("aut", "cph"), comment = "Intel TBB library, https://www.threadingbuildingblocks.org/"), person(family = "Microsoft", role = "cph") )
-# Description: High level functions for parallel programming with 'Rcpp'. For example, the 'parallelFor()' function can be used to convert the work of a standard serial "for" loop into a parallel one and the 'parallelReduce()' function can be used for accumulating aggregate or other values.
-# Depends: R (>= 3.0.2)
-# Suggests: Rcpp, RUnit, knitr, rmarkdown
-# SystemRequirements: GNU make, Windows: cmd.exe and cscript.exe, Solaris: g++ is required
-# License: GPL-2
-# URL: http://rcppcore.github.io/RcppParallel, https://github.com/RcppCore/RcppParallel
-# Biarch: TRUE
-# Collate: 'build.R' 'hooks.R' 'options.R' 'skeleton.R'
-# NeedsCompilation: yes
-# Packaged: 2019-05-22 18:52:14 UTC; kevin
-# Author: JJ Allaire [aut], Romain Francois [aut, cph], Kevin Ushey [aut, cre], Gregory Vandenbrouck [aut], Marcus Geelnard [aut, cph] (TinyThread library, http://tinythreadpp.bitsnbites.eu/), RStudio [cph], Intel [aut, cph] (Intel TBB library, https://www.threadingbuildingblocks.org/), Microsoft [cph]
-# Maintainer: Kevin Ushey <kevin@rstudio.com>
-# Repository: CRAN
-# Date/Publication: 2019-05-22 22:20:04 UTC
