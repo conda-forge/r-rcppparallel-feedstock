@@ -1,4 +1,4 @@
-{% set version = "5.1.9" %}
+{% set version = "5.1.11" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,14 +9,14 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/RcppParallel_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
-  sha256: fd0861f3f0f7be4e0ef29c021e75beb351ae2eb18ce5d79e21f2725da4da114f
+  sha256: 04b6d979e38d120049cb1f788873972ac3e65033d4c6878de4a3ee11e3484536
 
 build:
-  number: 1
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
-  script_env:       # [aarch64 or arm64 or ppc64le]
+  script_env:   # [aarch64 or arm64 or ppc64le]
     - arch=aarch64  # [aarch64]
     - arch=arm64    # [arm64]
     - arch=ppc64    # [ppc64le]
