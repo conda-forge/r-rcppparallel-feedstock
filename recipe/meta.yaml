@@ -45,6 +45,7 @@ requirements:
     - tbb-devel                    # [not win]
   run:
     - r-base
+    - tbb-devel                    # [not win]
 
 test:
   requires:
