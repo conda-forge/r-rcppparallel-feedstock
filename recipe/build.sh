@@ -6,7 +6,7 @@ export TBB_LIB="${PREFIX}/lib"
 export TBB_INC="${PREFIX}/include"
 
 # >>> begin debug
-echo "echo src/Makevars" >> configure
+echo "cat src/Makevars" >> configure
 # <<< end debug
 
 # shellcheck disable=SC2086
