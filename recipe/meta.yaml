@@ -41,6 +41,7 @@ requirements:
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
   host:
+    - tbb-devel
     - r-base
   run:
     - r-base
