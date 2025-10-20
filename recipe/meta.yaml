@@ -12,7 +12,7 @@ source:
   sha256: e18c83548212cbd52f6629131564a392b870399343a5867d512dbca2a27a6362
 
 build:
-  number: 2
+  number: 3
   rpaths:
     - lib/R/lib/
     - lib/
@@ -20,6 +20,9 @@ build:
     - arch=aarch64  # [aarch64]
     - arch=arm64    # [arm64]
     - arch=ppc64    # [ppc64le]
+  run_exports:
+    # keep the headers around even in "LinkingTo" packages
+    - {{ pin_compatible('tbb-devel', max_pin='x.x') }}  # [not win]
 
 requirements:
   build:
@@ -41,11 +44,15 @@ requirements:
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
   host:
-    - tbb-devel                    # [not win]
     - r-base
+    - tbb-devel                    # [not win]
   run:
-    - tbb-devel                    # [not win]
     - r-base
+    - tbb-devel                    # [not win]
+    
+    # try to guarantee symbolic links that RcppParallel creates
+    # see https://github.com/conda-forge/r-rcppparallel-feedstock/issues/40
+    - {{ pin_compatible('tbb', max_pin='x.x') }}  # [not win]
 
 test:
   requires:
