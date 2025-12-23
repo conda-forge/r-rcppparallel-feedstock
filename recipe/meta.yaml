@@ -12,7 +12,7 @@ source:
   sha256: e18c83548212cbd52f6629131564a392b870399343a5867d512dbca2a27a6362
 
 build:
-  number: 4
+  number: 5
   rpaths:
     - lib/R/lib/
     - lib/
@@ -27,12 +27,9 @@ build:
 requirements:
   build:
     - cross-r-base {{ r_base }}  # [build_platform != target_platform]
-    - {{ compiler('c') }}          # [not win]
-    - {{ stdlib("c") }}            # [not win]
-    - {{ compiler('cxx') }}        # [not win]
-    - {{ compiler('m2w64_c') }}    # [win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
-    - {{ stdlib("m2w64_c") }}      # [win]
+    - {{ compiler('c') }}
+    - {{ stdlib("c") }}
+    - {{ compiler('cxx') }}
     - {{ posix }}filesystem        # [win]
     - {{ posix }}sed
     - {{ posix }}grep              # [win]
@@ -44,11 +41,11 @@ requirements:
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
   host:
+    - tbb-devel
     - r-base
-    - tbb-devel                    # [not win]
   run:
+    - tbb-devel
     - r-base
-    - tbb-devel                    # [not win]
     
     # try to guarantee symbolic links that RcppParallel creates
     # see https://github.com/conda-forge/r-rcppparallel-feedstock/issues/40
