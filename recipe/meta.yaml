@@ -43,6 +43,7 @@ requirements:
     - {{ posix }}make
     - {{ posix }}coreutils         # [win]
     - {{ posix }}zip               # [win]
+    - cmake                        # [win]
   host:
     - r-base
     - tbb-devel                    # [not win]
