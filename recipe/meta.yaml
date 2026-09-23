@@ -1,4 +1,4 @@
-{% set version = "6.2.0" %}
+{% set version = "6.2.1" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,7 +9,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/RcppParallel_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/RcppParallel/RcppParallel_{{ version }}.tar.gz
-  sha256: 3b6eaf73a696059552186292c79233916267f8e2b5c9a309519391d16c5a8bbe
+  sha256: 6d076439020f64f502552ae924e93f62b6fefd2bb5c193987751dc7a48826ebc
 
 build:
   number: 0
